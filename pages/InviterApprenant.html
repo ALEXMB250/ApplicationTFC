@@ -60,33 +60,61 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <br>
       </div>
       <div class="col-md-10">
-        <!-- general form elements -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Questionnaire</h3>
+            <h3 class="card-title">Inviter les apprenants TP</h3>
           </div>
-          <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form">
+          <form role="form" id="apprenant-form">
             <div class="card-body">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+              <div class="row">
+                <div class="col-10">
+                  <input type="email" class="form-control" id="apprenant-input" placeholder="Entrer le email de l'apprenant">
+                </div>
+                <div class="col-2">
+                  <button type="submit" id="ajout-button" class="btn btn-primary">Inviter</button>
+                </div>
               </div>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Inviter</button>
-            </div>
           </form>
-        </div>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-1"><br></div>
+      <div class="col-md-10">
+        <div class="card card-body">
+          <table class="table table-bordered">
+            <thead>                  
+              <tr>
+                <th>Email</th>
+                <th>Mot de passe</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="apprenant-item">
+              <tr>
+                <td>alex@gmail.com</td>
+                <td>123456</td>
+                <td><button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10"><br></div>
+      <div class="col-1">
+        <a href="ComposerQuestionnaire.html" class="btn btn-block btn-primary">Suivant</a>
+      </div>
+    </div>
+    <br>
   </div>
 </div>
 <!-- REQUIRED SCRIPTS -->
-
+<!-- for me -->
+<script src="../dist/js/for_me/inviterApprenant.js"></script>
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

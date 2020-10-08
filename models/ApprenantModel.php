@@ -1,18 +1,19 @@
 <?php
 
-class Enseignant {
-    private $id;
+class Apprenant {
+    private $id_prof;
     private $email;
     private $mdp;
 
-    public function __construct($email, $mdp) {
+    public function __construct($email, $mdp, $id_prof) {
         $this->email = $email;
         $this->mdp = $mdp;
+        $this->id_prof = $id_prof;
     }
 
     public function insert() {
         $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
-        $requete = sprintf("INSERT INTO enseignant(email, mdp) VALUES('%s', '%s')", $this->email, $this->mdp);
+        $requete = sprintf("INSERT INTO apprenant(email, mdp, id ) VALUES('%s', '%s')", $this->email, $this->mdp);
         $result = $connexion-> prepare($requete);
         $result->execute();
     }
