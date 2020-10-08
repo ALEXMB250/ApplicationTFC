@@ -73,9 +73,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card-body login-card-body">
                   <p class="login-box-msg">Se connecter en tant qu'enseignant</p>
             
-                  <form action="#" method="post">
+                  <form action="../controllers/AuthentifierEnseignantController.php" method="post">
                     <div class="input-group mb-3">
-                      <input type="email" class="form-control" placeholder="Email">
+                      <input type="email" class="form-control" name="email" placeholder="Email">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-envelope"></span>
@@ -83,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
                     <div class="input-group mb-3">
-                      <input type="password" class="form-control" placeholder="Password">
+                      <input type="password" class="form-control" name="mdp" placeholder="Password">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-lock"></span>
@@ -92,10 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="row">
                       <div class="col-12">
-                        <!-- <button type="submit" class="btn btn-primary btn-block">Se connecter</button> -->
-                        <a href="accueilProfesseur.html" class="btn btn-block btn-danger">
-                          Se connecter
-                        </a>
+                        <button type="submit" class="btn btn-primary btn-block">Se connecter</button>                        
                       </div>
                       <!-- /.col -->
                     </div>
