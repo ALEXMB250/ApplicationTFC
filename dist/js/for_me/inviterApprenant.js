@@ -68,3 +68,36 @@ function ajouterBD(apprenants) {
 
     afficherApprenants(apprenants);
 }
+
+function supprimerApprenant(mdp) {
+    apprenants = apprenants.filter(function (element) {
+        return element.mdp != mdp;
+    });
+
+    afficherApprenants(apprenants);
+}
+
+apprenantItemList.addEventListener('click', function (event) {
+
+    //
+    /* <li class="item" data-key="20200708"> 
+            <input type="checkbox" class="checkbox">
+            Go to Gym
+            <button class="delete-button">X</button>
+        </li> */
+
+    alert(event.target.classList.contains('far fa-trash-alt'));
+    alert(event.target.getElementById);
+
+    // <tr>
+    //     <td>alex@gmail.com</td>
+    //     <td>123456</td>
+    //     <td><button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button></td>
+    // </tr>
+
+    // if(event.target.classList.contains('far fa-trash-alt')){
+    //     supprimerApprenant(event.target.innerHTML);
+    // }
+
+});
+
