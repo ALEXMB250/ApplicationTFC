@@ -7,6 +7,7 @@ const apprenantInput = document.getElementById('apprenant-input');
 // Recuperer apprenant-item
 const apprenantItemList = document.getElementById('apprenant-item');
 
+var btnSupprimerList = document.getElementsByClassName("btn-supprimer");
 // tableau de tous les apprenants
 let apprenants = [];
 
@@ -14,6 +15,20 @@ let apprenants = [];
 // const apprenant = {
 //     email : "alex@gmail",
 //     mdp : Date.now()
+// };
+
+// instance d'objet 
+
+// const qc = {
+//     question : "alex@gmail",
+//     asssertion : ["djj", 'dlkjs', 'dskjdhs'],
+//     reponse : "kjhfskjhdkf"
+// };
+
+// const qr = {
+//     question : "alex@gmail",
+//     asssertion : ["djj"],
+//     reponse : "kjhfskjhdkf"
 // };
 
 apprenantForm.addEventListener('submit', function (event) {
@@ -42,9 +57,9 @@ function afficherApprenants(apprenants) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
         <tr>
-            <td>${element.email}</td>
-            <td>${element.mdp}</td>
-            <td><button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button></td>
+            <td> ${element.email} </td>
+            <td> ${element.mdp} </td>
+            <td data-key = "${element.mdp}" ><button  type="button" class="btn btn-default btn-sm btn-supprimmer"><i class="far fa-trash-alt"></i></button></td>
         </tr>
         `;
         apprenantItemList.append(tr);
@@ -79,25 +94,9 @@ function supprimerApprenant(mdp) {
 
 apprenantItemList.addEventListener('click', function (event) {
 
-    //
-    /* <li class="item" data-key="20200708"> 
-            <input type="checkbox" class="checkbox">
-            Go to Gym
-            <button class="delete-button">X</button>
-        </li> */
-
-    alert(event.target.classList.contains('far fa-trash-alt'));
-    alert(event.target.getElementById);
-
-    // <tr>
-    //     <td>alex@gmail.com</td>
-    //     <td>123456</td>
-    //     <td><button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button></td>
-    // </tr>
-
-    // if(event.target.classList.contains('far fa-trash-alt')){
-    //     supprimerApprenant(event.target.innerHTML);
-    // }
+    if(event.target.classList.contains('btn-supprimmer')){
+        supprimerApprenant(event.target.parentElement.getAttribute("data-key"));
+    }
 
 });
 
