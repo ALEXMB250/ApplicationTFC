@@ -7,7 +7,6 @@ const apprenantInput = document.getElementById('apprenant-input');
 // Recuperer apprenant-item
 const apprenantItemList = document.getElementById('apprenant-item');
 
-var btnSupprimerList = document.getElementsByClassName("btn-supprimer");
 // tableau de tous les apprenants
 let apprenants = [];
 
@@ -59,7 +58,7 @@ function afficherApprenants(apprenants) {
         <tr>
             <td> ${element.email} </td>
             <td> ${element.mdp} </td>
-            <td data-key = "${element.mdp}" ><button  type="button" class="btn btn-default btn-sm btn-supprimmer"><i class="far fa-trash-alt"></i></button></td>
+            <td data-key = "${element.mdp}" ><button  type="button" class="btn btn-default btn-sm btn-supprimer"><i class="far fa-trash-alt"></i></button></td>
         </tr>
         `;
         apprenantItemList.append(tr);
@@ -94,7 +93,7 @@ function supprimerApprenant(mdp) {
 
 apprenantItemList.addEventListener('click', function (event) {
 
-    if(event.target.classList.contains('btn-supprimmer')){
+    if(event.target.classList.contains('btn-supprimer')){
         supprimerApprenant(event.target.parentElement.getAttribute("data-key"));
     }
 
