@@ -15,7 +15,7 @@ div_quest_rep.setAttribute('class', 'card card-primary');
 
 var questionInput = document.getElementById('question-input');
 
-var questionForm = document.getElementById('question-item');
+var questionItemList = document.getElementById('question-item');
 var question_rep_input = document.getElementById('question-rep-input');
 var reponse_requestRes_input = document.getElementById('reponse-questRes-input');
 
@@ -32,10 +32,21 @@ typeQuestion.addEventListener('submit', function (event) {
 
         // envoyer les donnees de champs du formulaire tout en verifiant qu'aucun 
         // champs ne soit vide
-        if(question_input !== '' &&  reponse_input !== ''){
+        if(question_input[0] !== '' &&  reponse_input !== ''){
+
             console.log("Question : " + question_input + "\n" +
-            "Reponse : "+ reponse_input);          
+            "Reponse : "+ reponse_input);
+            ajoutQuestion(question_input, [question_input], reponse_input);   
         } 
+
+// instance d'objet 
+
+// const qc = {
+    // id : Date.now();
+//     question : "alex@gmail",
+//     asssertion : ["djj", 'dlkjs', 'dskjdhs'],
+//     reponse : "kjhfskjhdkf"
+// };
         
         
     } else if (event.target.classList.contains('form-assertion')) {
@@ -55,9 +66,11 @@ typeQuestion.addEventListener('submit', function (event) {
         // champs ne soit vide
 
         if (question_input !== "" && assertions[0] !== "" && assertions[1] !== "" &&
-            assertions[2] !== "" && assertions[3] !== "") {
+            assertions[2] !== "" && assertions[3] !== "") 
+        {
 
-            if($(":radio[data-key='assertion1_input']:checked").val()){
+            if($(":radio[data-key='assertion1_input']:checked").val())
+            {
                 reponse = assertions[0];
             } 
             
@@ -71,7 +84,8 @@ typeQuestion.addEventListener('submit', function (event) {
                 reponse = assertions[2];
             } 
             
-            else if($(":radio[data-key='assertion4_input']:checked").val()){
+            else if($(":radio[data-key='assertion4_input']:checked").val())
+            {
                 reponse = assertions[3];
             }
 
@@ -84,6 +98,8 @@ typeQuestion.addEventListener('submit', function (event) {
                 'Assertion 3 ' + assertions[2] + '\n' +
                 'Assertion 4 ' + assertions[3] + '\n'
             );
+
+            ajoutQuestion(question_input, assertions, reponse);
 
         }
 
@@ -167,82 +183,104 @@ quest_rep_radio.addEventListener('click', function (event) {
 });
 
 
-// ajouter les elements a la racine
-
-// questionForm.addEventListener('submit', function (event) {
-//     event.preventDefault();
-//     alert(questionInput.value);
-//     alert(reponseQuestRepInput.value);
-//     var assertions = [questionInput.value];
-//     var reponse = reponseQuestRepInput.value;
-//     if(assertions[0] !== "" && reponse !== ""){
-//         ajoutQuestion(reponse, assertions);
-//         reponse.value = "";
-//         for (let i = 0; i < assertions.length; i++) {
-//             assertions[i] = "";
-//         }
-//     }
-// });
-
-// instance d'objet 
-
-// const qc = {
-    // id : Date.now();
-//     question : "alex@gmail",
-//     asssertion : ["djj", 'dlkjs', 'dskjdhs'],
-//     reponse : "kjhfskjhdkf"
-// };
-
-// const qr = {
-    // id : Date.now();
-//     question : "alex@gmail",
-//     asssertion : ["djj"],
-//     reponse : "kjhfskjhdkf"
-// };
-
-function ajoutQuestion(reponse, assertion){
+function ajoutQuestion(question_input, assertions, reponse_input)
+{
     // creer un objet question
     const question = {
         id : Date.now(),
-        reponse : reponse,
-        assertion : assertion
+        question : question_input,
+        assertion : assertions,
+        reponse : reponse_input
     }
+
     questionnaire.push(question);
     afficherQuestion(questionnaire);
 }
 
-function afficherQuestion() {
-    questionnaire.innerHTML = "";
+function afficherQuestion(questionnaire) 
+{
 
-    questionnaire.forEach(function (element) {
+    questionItemList.innerHTML = '';
+
+    questionnaire.forEach(element => {
         var div = document.createElement('div');
-        div.setAttribute('data-key', element.id);
-        div.setAttribute('class', 'card card-primary');
+        div.setAttribute("class", "card card-primary");
+        div.setAttribute("data-key", element.question.id);
 
-        div.innerHTML = `
-        <div class="card-header">
-            <h3 class="card-title">Question</h3>
+        if(element.assertion.length === 1)
+        {            
+            
+            div.innerHTML = `
+            <div class="card-header">
+                <h3 class="card-title">Question</h3>
 
-            <div class="card-tools">
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>${element.question}</p>                      
+                        </div>
+                        <div class="form-group">
+                            <h5>${element.reponse}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            `;
+
+            questionItemList.append(div);
+        } 
+
+        else if(element.assertion.length === 4)
+        {
+            div.innerHTML = `
+            <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Question</h3>
+
+              <div class="card-tools">
                 <button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>
+              </div>
             </div>
-        </div>
-        <div class="card-body">
-            <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <p>${assertion[0]}</p>                      
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                      <p>${element.question}</p>                      
+                  </div>
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radio1" checked>
+                      <label for="radio1">${element.assertion[0]}</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radio1" disabled>
+                      <label for="radio1">${element.assertion[1]}</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radio1" disabled>
+                      <label for="radio1">${element.assertion[2]}</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radio1" disabled>
+                      <label for="radio1">${element.assertion[3]}</label>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group">
-                <h5>${reponse}</h5>
-                </div>
+              </div>
             </div>
-            </div>
-        </div>
-        <!-- /.card-body -->
-        `;
+            <!-- /.card-body -->
+          </div>
+            `;
+            questionItemList.append(div);
+        }
 
-        questionItem.append(div);
-    })
+    });;
+
 
 }
