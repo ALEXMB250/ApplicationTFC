@@ -16,20 +16,6 @@ let apprenants = [];
 //     mdp : Date.now()
 // };
 
-// instance d'objet 
-
-// const qc = {
-//     question : "alex@gmail",
-//     asssertion : ["djj", 'dlkjs', 'dskjdhs'],
-//     reponse : "kjhfskjhdkf"
-// };
-
-// const qr = {
-//     question : "alex@gmail",
-//     asssertion : ["djj"],
-//     reponse : "kjhfskjhdkf"
-// };
-
 apprenantForm.addEventListener('submit', function (event) {
     event.preventDefault();
     ajoutApprenant(apprenantInput.value);
