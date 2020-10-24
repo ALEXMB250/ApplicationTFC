@@ -38,16 +38,6 @@ typeQuestion.addEventListener('submit', function (event) {
             "Reponse : "+ reponse_input);
             ajoutQuestion(question_input, [question_input], reponse_input);   
         } 
-
-// instance d'objet 
-
-// const qc = {
-    // id : Date.now();
-//     question : "alex@gmail",
-//     asssertion : ["djj", 'dlkjs', 'dskjdhs'],
-//     reponse : "kjhfskjhdkf"
-// };
-        
         
     } else if (event.target.classList.contains('form-assertion')) {
 
@@ -205,19 +195,21 @@ function afficherQuestion(questionnaire)
     questionnaire.forEach(element => {
         var div = document.createElement('div');
         div.setAttribute("class", "card card-primary");
-        div.setAttribute("data-key", element.question.id);
 
-        if(element.assertion.length === 1)
-        {            
-            
-            div.innerHTML = `
+        $(div).append(`
             <div class="card-header">
                 <h3 class="card-title">Question</h3>
 
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>
+                    <button type="button" class="btn btn-tool" data-key="${element.id}"><i class="fas fa-times"></i></button>
                 </div>
             </div>
+        `);
+
+        if(element.assertion.length === 1)
+        {            
+            
+            $(div).append(`
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -231,56 +223,62 @@ function afficherQuestion(questionnaire)
                 </div>
             </div>
             <!-- /.card-body -->
-            `;
+            `);
 
             questionItemList.append(div);
         } 
 
         else if(element.assertion.length === 4)
         {
-            div.innerHTML = `
-            <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Question</h3>
+            var num_radio = Date.now();
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                      <p>${element.question}</p>                      
-                  </div>
-                  <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="radio1" checked>
-                      <label for="radio1">${element.assertion[0]}</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="radio1" disabled>
-                      <label for="radio1">${element.assertion[1]}</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="radio1" disabled>
-                      <label for="radio1">${element.assertion[2]}</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="radio1" disabled>
-                      <label for="radio1">${element.assertion[3]}</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-          </div>
-            `;
+            $(div).append('<div class="card-body"> <div class="row"> <div class="col-md-12"> <div class="form-group"> <p>' + element.question );
+            // $(div).append('');
+            // $(div).append('');
+            // $(div).append('');
+            $(div).append('</p>');
+            $(div).append('</div>');
+            $(div).append('<div class="form-group">');
+                
+                for (let i = 0; i < 4; i++) {
+                    if (element.reponse === element.assertion[i]) {
+                        $(div).append('<div class="form-check">');
+                        $(div).append('<input class="form-check-input" type="radio" name="radio' + num_radio + '" checked>');
+                        $(div).append('<label for="radio' + num_radio + '">' + element.assertion[i] + '</label>');
+                        $(div).append('</div>');
+                    } else {
+                        $(div).append('<div class="form-check">');
+                        $(div).append('<input class="form-check-input" type="radio" name="radio' + num_radio + '" disabled>');
+                        $(div).append('<label for="radio' + num_radio + '">' + element.assertion[i] + '</label>');
+                        $(div).append('</div>');
+                    }
+                    
+                }
+                
+                $(div).append('</div>');
+                $(div).append('</div>');
+                $(div).append('</div>');
+                $(div).append('</div>');        
+
             questionItemList.append(div);
         }
 
-    });;
+    });
 
 
 }
+
+questionItemList.addEventListener('click', function (event) {
+    if (event.target.classList.contains('fa-times')) {
+        supprimerQuestion(event.target.parentElement.getAttribute('data-key'));
+    }
+});
+
+function supprimerQuestion(id) {
+    questionnaire = questionnaire.filter(function (element) {
+        return element.id != id;
+    });
+    
+    afficherQuestion(questionnaire);
+}
+
