@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card-body login-card-body">
                   <p class="login-box-msg">S'inscrire en tant qu'enseignant</p>
             
-                  <form action="../controllers/EnregistrerEnseignantController.php" method="post">
+                  <form action="../controllers/EnseignantController.php" method="post">
                     <div class="input-group mb-3">
                       <input type="email" class="form-control" name="email" placeholder="Email" required>
                       <div class="input-group-append">
@@ -90,6 +90,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                       </div>
                     </div>
+                    
+                    <input type="hidden" name="action" value="enregistrer">
                     
                     <div class="row">
                       <div class="col-12">

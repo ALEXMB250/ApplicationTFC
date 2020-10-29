@@ -73,17 +73,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card-body login-card-body">
                   <p class="login-box-msg">Se connecter en tant qu'enseignant</p>
             
-                  <form action="../controllers/AuthentifierEnseignantController.php" method="post">
+                  <form action="../controllers/EnseignantController.php" method="post">
                     <div class="input-group mb-3">
-                      <input type="email" class="form-control" name="email" placeholder="Email">
+                      <input type="email" class="form-control" name="email" placeholder="Email" required>
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-envelope"></span>
                         </div>
                       </div>
                     </div>
+                    <input type="hidden" name="action" value="authentifier">
                     <div class="input-group mb-3">
-                      <input type="password" class="form-control" name="mdp" placeholder="Password">
+                      <input type="password" class="form-control" name="mdp" placeholder="Password" required>
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-lock"></span>

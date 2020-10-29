@@ -1,6 +1,6 @@
 <?php
 
-require "Connexion.php";
+require "ConnexionBD.php";
 
 
 class Enseignant {
@@ -36,7 +36,7 @@ class Enseignant {
         }
         else{
             echo "Login ou mot de passe incorrecte </br>";
-            echo "<a href='../pages/connecterProfesseur.html'>Page d'accueil</a>";
+            echo "<a href='../pages/connecterProfesseur.php'>Page d'accueil</a>";
         }
         $reponse->closeCursor();
     }
