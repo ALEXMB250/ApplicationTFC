@@ -26,20 +26,21 @@ let questionnaire = [];
 typeQuestion.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    if (event.target.classList.contains('question-form')) {
+    if (event.target.classList.contains('question-form')) 
+    {
         var question_input = $("#question-rep-input").val();
         var reponse_input = $("#reponse-input").val();
 
         // envoyer les donnees de champs du formulaire tout en verifiant qu'aucun 
         // champs ne soit vide
-        if(question_input[0] !== '' &&  reponse_input !== ''){
-
-            console.log("Question : " + question_input + "\n" +
-                "Reponse : "+ reponse_input);
+        if(question_input[0] !== '' &&  reponse_input !== '')
+        {
             ajoutQuestion(question_input, [question_input], reponse_input);
 
-            // question_input.innerHTML = " ";
-            // reponse_input.innerHTML = " ";
+            //Vider le champs
+
+            $("#question-rep-input").val("");
+            $("#reponse-input").val("");
 
         } 
         
@@ -86,24 +87,19 @@ typeQuestion.addEventListener('submit', function (event) {
                 reponse = assertions[3];
             }
 
-            console.log
-            (
-                'question : ' + question_input + '\n' +
-                'Reponse : ' + reponse + '\n' +
-                'Assertion 1 ' + assertions[0] + '\n' +
-                'Assertion 2 ' + assertions[1] + '\n' +
-                'Assertion 3 ' + assertions[2] + '\n' +
-                'Assertion 4 ' + assertions[3] + '\n'
-            );
-
             ajoutQuestion(question_input, assertions, reponse);
+
+            // Vider les champs
+
+            $("#assertion1_input").val("");
+            $("#assertion2_input").val("");
+            $("#assertion3_input").val("");
+            $("#assertion4_input").val("");
+            $("#quest-input").val("");
 
         }
 
-        // assertion[0].val("");
-        // assertion[1].val("");
-        // assertion[2].val("");
-        // assertion[3].val("");
+        
 
     }
 });
@@ -196,15 +192,33 @@ function ajoutQuestion(question_input, assertions, reponse_input)
     }
 
     questionnaire.push(question);
-    afficherQuestion(questionnaire);
+    ajoutBaseDeDonnees(questionnaire);
+    // afficherQuestion(questionnaire);
 }
 
 
+function ajoutBaseDeDonnees(questionnaire)
+{
+
+    afficherQuestion(questionnaire);
+}
+
+function supprimerQuestion(element) {
+    
+    questionnaire = questionnaire.filter(function (item) {
+        console.log(item.id + " = " + element)
+
+        return item.id != element;
+    })
+
+    ajoutBaseDeDonnees(questionnaire);
+}
 
 function afficherQuestion(questionnaire) 
 {
 
     questionItemList.innerHTML = '';
+    var key = Date.now();
 
     questionnaire.forEach(element => {
         var div = document.createElement('div');
@@ -215,7 +229,7 @@ function afficherQuestion(questionnaire)
                 <h3 class="card-title">Question</h3>
 
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>
+                    <button type="button" data-key="${key}" class="btn btn-tool"><i class="fas fa-times"></i></button>
                 </div>
             </div>
         `;
@@ -295,4 +309,10 @@ function afficherQuestion(questionnaire)
 
 
 }
+
+questionItemList.addEventListener("click", function (e) {
+    if(e.target.classList.contains("fa-times")){
+        supprimerQuestion(e.target.parentElement.getAttribute('data-key'));
+    }
+})
 

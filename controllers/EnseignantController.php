@@ -2,6 +2,7 @@
 
 require "../models/EnseignantModel.php";
 
+// enregistrer le professeur
 
 if ($_POST['action'] == "enregistrer" && isset($_POST['email']) && isset($_POST['mdp'])) 
 {
@@ -12,6 +13,8 @@ if ($_POST['action'] == "enregistrer" && isset($_POST['email']) && isset($_POST[
     // Redirection
     header('Location: ../pages/accueilProfesseur.html');    
 } 
+
+// authentifier le professeur
 
 else if ($_POST['action'] == "authentifier" && isset($_POST['email']) && isset($_POST['mdp']))
 {

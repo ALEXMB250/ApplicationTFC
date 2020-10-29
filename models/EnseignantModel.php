@@ -32,7 +32,7 @@ class Enseignant {
             }
         }
         if(isset($utisateur) AND isset($mdp)){
-            header('Location: ../pages/inviterApprenant.html');
+            header('Location: ../pages/accueilProfesseur.html');
         }
         else{
             echo "Login ou mot de passe incorrecte </br>";
