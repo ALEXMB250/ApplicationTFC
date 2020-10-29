@@ -1,5 +1,8 @@
 <?php
 
+require "Connexion.php";
+
+
 class Enseignant {
     private $id;
     private $email;
@@ -10,15 +13,17 @@ class Enseignant {
         $this->mdp = $mdp;
     }
 
+    
+
     public function insert() {
-        $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
+        $connexion = Connexion::getConnexion();
         $requete = sprintf("INSERT INTO enseignant(email, mdp) VALUES('%s', '%s')", $this->email, $this->mdp);
         $result = $connexion-> prepare($requete);
         $result->execute();
     }
 
     public function valider($email, $mdp) {
-        $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
+        $connexion = Connexion::getConnexion();
         $reponse = $connexion->query('SELECT email, mdp FROM enseignant');
         while($donnees = $reponse->fetch()){
             if($_POST['email'] == $donnees['email'] AND $_POST['mdp'] == $donnees['mdp']){
@@ -35,6 +40,8 @@ class Enseignant {
         }
         $reponse->closeCursor();
     }
+
+    
 
 
 }

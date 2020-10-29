@@ -100,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
                   <div class="social-auth-links text-center mb-3">
                     <p>- OU -</p>
-                    <a href="inscriptionProfesseur.html" class="btn btn-block btn-danger">
+                    <a href="inscriptionProfesseur.php" class="btn btn-block btn-danger">
                       Creer un compte
                     </a>
                   </div>

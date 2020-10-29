@@ -1,5 +1,5 @@
 <?php
-
+include ("../models/ConnexionBD.php");
 require "../models/EnseignantModel.php";
 
 if(isset($_POST)) {
@@ -10,6 +10,10 @@ if(isset($_POST)) {
     echo "ok";
     // Redirection du visiteur vers la page du minichat
     header('Location: ../pages/inviterApprenant.html');
+}
+else{
+    echo "<h3>Remplissez tous les champs</h3>";
+    echo "<a href='../pages/inscriptionProfesseur.php'>Retour</a>";
 }
 
 

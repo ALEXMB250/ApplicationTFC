@@ -35,11 +35,18 @@ typeQuestion.addEventListener('submit', function (event) {
         if(question_input[0] !== '' &&  reponse_input !== ''){
 
             console.log("Question : " + question_input + "\n" +
-            "Reponse : "+ reponse_input);
-            ajoutQuestion(question_input, [question_input], reponse_input);   
+                "Reponse : "+ reponse_input);
+            ajoutQuestion(question_input, [question_input], reponse_input);
+
+            // question_input.innerHTML = " ";
+            // reponse_input.innerHTML = " ";
+
         } 
         
-    } else if (event.target.classList.contains('form-assertion')) {
+    } 
+    
+    else if (event.target.classList.contains('form-assertion')) 
+    {
 
         var question_input = $("#quest-input").val();
         var assertions = [
@@ -92,6 +99,11 @@ typeQuestion.addEventListener('submit', function (event) {
             ajoutQuestion(question_input, assertions, reponse);
 
         }
+
+        // assertion[0].val("");
+        // assertion[1].val("");
+        // assertion[2].val("");
+        // assertion[3].val("");
 
     }
 });
@@ -187,6 +199,8 @@ function ajoutQuestion(question_input, assertions, reponse_input)
     afficherQuestion(questionnaire);
 }
 
+
+
 function afficherQuestion(questionnaire) 
 {
 
@@ -196,20 +210,20 @@ function afficherQuestion(questionnaire)
         var div = document.createElement('div');
         div.setAttribute("class", "card card-primary");
 
-        $(div).append(`
+        div.innerHTML = `
             <div class="card-header">
                 <h3 class="card-title">Question</h3>
 
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-key="${element.id}"><i class="fas fa-times"></i></button>
+                    <button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>
                 </div>
             </div>
-        `);
+        `;
 
         if(element.assertion.length === 1)
         {            
             
-            $(div).append(`
+            div.innerHTML += `
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -223,62 +237,62 @@ function afficherQuestion(questionnaire)
                 </div>
             </div>
             <!-- /.card-body -->
-            `);
-
+            `;
             questionItemList.append(div);
+
         } 
 
-        else if(element.assertion.length === 4)
+        else if(element.assertion.length > 1)
         {
+
             var num_radio = Date.now();
 
-            $(div).append('<div class="card-body"> <div class="row"> <div class="col-md-12"> <div class="form-group"> <p>' + element.question );
-            // $(div).append('');
-            // $(div).append('');
-            // $(div).append('');
-            $(div).append('</p>');
-            $(div).append('</div>');
-            $(div).append('<div class="form-group">');
+            div.innerHTML += `
+            <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                    <p>${element.question}</p>                      
+                </div>
+                <div class="form-group">
+                `
+                ;
                 
-                for (let i = 0; i < 4; i++) {
+                for (let i = 0; i < element.assertion.length; i++) {
                     if (element.reponse === element.assertion[i]) {
-                        $(div).append('<div class="form-check">');
-                        $(div).append('<input class="form-check-input" type="radio" name="radio' + num_radio + '" checked>');
-                        $(div).append('<label for="radio' + num_radio + '">' + element.assertion[i] + '</label>');
-                        $(div).append('</div>');
+                        div.innerHTML += `
+                        <div class="form-check" style="margin-left : 20px">
+                            <input class="form-check-input" type="radio" name="radio${num_radio}" checked>
+                            <label for="radio${num_radio}">${element.assertion[i]}</label>
+                        </div>
+                        `;
                     } else {
-                        $(div).append('<div class="form-check">');
-                        $(div).append('<input class="form-check-input" type="radio" name="radio' + num_radio + '" disabled>');
-                        $(div).append('<label for="radio' + num_radio + '">' + element.assertion[i] + '</label>');
-                        $(div).append('</div>');
+                        div.innerHTML += `
+                        <div class="form-check" style="margin-left : 20px">
+                            <input class="form-check-input" type="radio" name="radio${num_radio}" disabled>
+                            <label for="radio${num_radio}">${element.assertion[i]}</label>
+                        </div>
+                        `;
+                        
                     }
                     
                 }
                 
-                $(div).append('</div>');
-                $(div).append('</div>');
-                $(div).append('</div>');
-                $(div).append('</div>');        
+                div.innerHTML +=`
+                <br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+            `;
 
             questionItemList.append(div);
+            
         }
 
-    });
+    });;
 
 
-}
-
-questionItemList.addEventListener('click', function (event) {
-    if (event.target.classList.contains('fa-times')) {
-        supprimerQuestion(event.target.parentElement.getAttribute('data-key'));
-    }
-});
-
-function supprimerQuestion(id) {
-    questionnaire = questionnaire.filter(function (element) {
-        return element.id != id;
-    });
-    
-    afficherQuestion(questionnaire);
 }
 

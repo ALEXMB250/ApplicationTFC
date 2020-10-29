@@ -75,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
                   <form action="../controllers/EnregistrerEnseignantController.php" method="post">
                     <div class="input-group mb-3">
-                      <input type="email" class="form-control" name="email" placeholder="Email">
+                      <input type="email" class="form-control" name="email" placeholder="Email" required>
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-envelope"></span>
@@ -83,13 +83,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
                     <div class="input-group mb-3">
-                      <input type="password" class="form-control" name="mdp" placeholder="Password">
+                      <input type="password" class="form-control" name="mdp" placeholder="Password" required>
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-lock"></span>
                         </div>
                       </div>
                     </div>
+                    
                     <div class="row">
                       <div class="col-12">
                         <button type="submit" class="btn btn-block btn-danger">Creer un compte</button>

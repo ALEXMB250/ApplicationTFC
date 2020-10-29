@@ -1,5 +1,7 @@
 <?php
 
+require "ConnexionBD.php";
+
 class Apprenant {
     private $id_prof;
     private $email;
@@ -12,14 +14,14 @@ class Apprenant {
     }
 
     public function insert() {
-        $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
+        // $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
         $requete = sprintf("INSERT INTO apprenant(email, mdp, id ) VALUES('%s', '%s')", $this->email, $this->mdp);
         $result = $connexion-> prepare($requete);
         $result->execute();
     }
 
     public function valider($email, $mdp) {
-        $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
+        // $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
         $reponse = $connexion->query('SELECT email, mdp FROM enseignant');
         while($donnees = $reponse->fetch()){
             if($_POST['email'] == $donnees['email'] AND $_POST['mdp'] == $donnees['mdp']){
