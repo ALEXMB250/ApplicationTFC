@@ -199,6 +199,7 @@ function ajoutQuestion(question_input, assertions, reponse_input)
 
 function ajoutBaseDeDonnees(questionnaire)
 {
+    console.log(questionnaire);
 
     afficherQuestion(questionnaire);
 }

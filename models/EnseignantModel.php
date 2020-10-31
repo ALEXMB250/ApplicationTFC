@@ -24,27 +24,32 @@ class Enseignant {
 
     public function valider($email, $mdp) {
         $connexion = Connexion::getConnexion();
-        $reponse = $connexion->query('SELECT email, mdp FROM enseignant');
-        while($donnees = $reponse->fetch()){
-            if($_POST['email'] == $donnees['email'] AND $_POST['mdp'] == $donnees['mdp']){
-                $utisateur = $donnees['email'];
-                $mdp = $donnees['mdp'];
-            }
-        }
-        if(isset($utisateur) AND isset($mdp)){
-            header('Location: ../pages/accueilProfesseur.html');
-        }
-        else{
-            echo "Login ou mot de passe incorrecte </br>";
-            echo "<a href='../pages/connecterProfesseur.php'>Page d'accueil</a>";
+        $query = sprintf("SELECT id FROM enseignant WHERE email='%s' AND mdp = '%s'", $email, $mdp);
+        $reponse = $connexion->query($query);
+
+        $id = null;
+
+        if($data = ($reponse->fetch(PDO::FETCH_ASSOC))) {
+            $id = $data["id"];
         }
         $reponse->closeCursor();
+        return $id;
     }
 
-    
-
+    public static function getEnseignantByid($enseignant_id)
+    {
+        $connexion = Connexion::getConnexion();
+        $reponse = $connexion->prepare('SELECT * FROM enseignant WHERE id= ?');
+        $reponse->execute(array($enseignant_id));
+        $data = $reponse -> fetch(PDO::FETCH_ASSOC);
+        $reponse->closeCursor();
+        return $data;
+    }
 
 }
+
+$ens = new Enseignant("g@g.co", "123");
+$ens->getEnseignantByid(8);
 
 
 ?>

@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Se Connecter</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="connecterProfesseur.php" class="dropdown-item">Enseignant</a></li>
+              <li><a href="connecterProfesseur.html" class="dropdown-item">Enseignant</a></li>
               <li><a href="../index.html" class="dropdown-item">Apprenant</a></li>              
             </ul>
           </li>
@@ -54,80 +54,59 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </nav>
   <!-- /.navbar -->
-  <div class="container">
-    <!-- Info boxes -->
-    <div class="row">
-      <br>
-    </div>
-  </div>
-  <div class="container">
-    <!-- Info boxes -->
-    <div class="row">
-      <a href="configurationQuestion.php" class="btn btn-danger">
-        Composer un questionnaire
-      </a>
-    </div>
-  </div>
-  <!-- /.navbar -->
-  <div class="container">
-    <!-- Info boxes -->
-    <div class="row">
-      <br>
-    </div>
-  </div>
-
-  <div class="container">
-    <!-- Info boxes -->
-    <div class="row">
-      <!-- /.col -->
-      <div class="col-12 col-sm-6 col-md-3">
-        <a style="color: black;" href="cotationTD.html">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Date: 03/10/2020</span>
-              <span class="info-box-text">Effectif : 30 apprenants</span>
-            </div>
-            <!-- /.info-box-content -->
+  
+    <!-- Main content -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <br>              
           </div>
-          <!-- /.info-box -->
-        </a>
-      </div>
-      <!-- /.col -->
-      <div class="col-12 col-sm-6 col-md-3">
-        <a style="color: black;" href="cotationTD.html">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Date: 25/09/2020</span>
-              <span class="info-box-text">Effectif : 30 apprenants</span>
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <div class="login-box">
+              <div class="login-logo">
+                <b class="text-white bg-dark">Configurer</b>
+              </div>
+              <!-- /.login-logo -->
+              <div class="card">
+                <div class="card-body login-card-body">
+                
+                  <form action="../controllers/TPController.php" method="POST">
+                      <label>Date de debut</label> <br>
+                      <input type="date" name="date_debut" required> <br>
+                      <label>Heure de debut</label> <br>
+                      <input type="time" name="heure_debut" required> <br>
+                      <label>Date de fin</label> <br>
+                      <input type="date" name="date_fin" required> <br>
+                      <label>Heure de fin</label> <br>
+                      <input type="time" name="heure_fin" required> <br>
+                      <label>Duree</label> <br>
+                      <input type="number" name="duree" required> <br>
+                      <label>Cours</label> <br>
+                      <input type="text" name="cours" required> <br><br>
+                      <input type="submit" value="Valider">
+                  </form>
+                </div>
+                <!-- /.login-card-body -->
+              </div>
             </div>
-            <!-- /.info-box-content -->
+            <!-- /.login-box -->              
           </div>
-          <!-- /.info-box -->
-        </a>
-      </div>
-      <!-- /.col -->
-      <div class="col-12 col-sm-6 col-md-3">
-        <a style="color: black;" href="cotationTD.html">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Date: 23/09/2020</span>
-              <span class="info-box-text">Effectif : 30 apprenants</span>
-            </div>
-            <!-- /.info-box-content -->
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <br>              
           </div>
-          <!-- /.info-box -->
-        </a>
-      </div>
-      <!-- /.col -->
+          <!-- /.col-lg-4 -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-    <!-- /.row -->
+    <!-- /.content -->
   </div>
+  
+    <!-- /.content -->
+</div>
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
