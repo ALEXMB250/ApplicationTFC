@@ -8,18 +8,24 @@ class Enseignant {
     private $email;
     private $mdp;
 
-    public function __construct($email, $mdp) {
+    public function __construct($id, $email, $mdp) {
+        $this->id = $id;
         $this->email = $email;
         $this->mdp = $mdp;
     }
 
-    
-
     public function insert() {
+
+        $data = array(
+            $this->id,
+            $this->email,
+            $this->mdp
+        );
+
         $connexion = Connexion::getConnexion();
-        $requete = sprintf("INSERT INTO enseignant(email, mdp) VALUES('%s', '%s')", $this->email, $this->mdp);
+        $requete = "INSERT INTO enseignant(id, email, mdp) VALUES(?,?,?)";
         $result = $connexion-> prepare($requete);
-        $result->execute();
+        $result-> execute($data);
     }
 
     public function valider($email, $mdp) {
@@ -47,9 +53,6 @@ class Enseignant {
     }
 
 }
-
-$ens = new Enseignant("g@g.co", "123");
-$ens->getEnseignantByid(8);
 
 
 ?>

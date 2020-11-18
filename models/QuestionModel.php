@@ -7,42 +7,38 @@ class Question {
     private $id;
     private $type;
     private $enonce;
+    private $tp_id;
 
-    public function __construct($email, $mdp) {
-        $this->email = $email;
-        $this->mdp = $mdp;
+    public function __construct($id, $type, $enonce, $tp_id) {
+        $this->id = $id;
+        $this->type = $type;
+        $this->enonce = $enonce;
+        $this->tp_id = $tp_id;
     }
 
     
 
     public function insert() {
+
+        $data = array(
+            $this->id,
+            $this->type,
+            $this->enonce,
+            $this->tp_id
+        );
+
         $connexion = Connexion::getConnexion();
-        $requete = sprintf("INSERT INTO enseignant(email, mdp) VALUES('%s', '%s')", $this->email, $this->mdp);
-        $result = $connexion-> prepare($requete);
-        $result->execute();
+        $requete = "INSERT INTO question(`id`, `type`, `enonce`, `tp_id`)
+                    VALUES(?,?,?,?)";
+        $result = $connexion->prepare($requete);
+        $result->execute($data);
     }
 
-    public function valider($email, $mdp) {
+    public function supprimer($id) {
         $connexion = Connexion::getConnexion();
-        $reponse = $connexion->query('SELECT email, mdp FROM enseignant');
-        while($donnees = $reponse->fetch()){
-            if($_POST['email'] == $donnees['email'] AND $_POST['mdp'] == $donnees['mdp']){
-                $utisateur = $donnees['email'];
-                $mdp = $donnees['mdp'];
-            }
-        }
-        if(isset($utisateur) AND isset($mdp)){
-            header('Location: ../pages/accueilProfesseur.html');
-        }
-        else{
-            echo "Login ou mot de passe incorrecte </br>";
-            echo "<a href='../pages/connecterProfesseur.php'>Page d'accueil</a>";
-        }
-        $reponse->closeCursor();
+        $requete = $connexion->prepare("DELETE FROM `question` WHERE id=?");
+        $result->execute(array($id));
     }
-
-    
-
 
 }
 

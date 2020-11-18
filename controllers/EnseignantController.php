@@ -7,10 +7,12 @@ require "../models/EnseignantModel.php";
 
 if ($_POST['action'] == "enregistrer" && isset($_POST['email']) && isset($_POST['mdp'])) 
 {
+    $id = uniqid("EA_");
     $email = $_POST["email"];
     $mdp = $_POST["mdp"];
-    $enseignant = new Enseignant($email, $mdp);
+    $enseignant = new Enseignant($id, $email, $mdp);
     $enseignant->insert();
+    $_SESSION['id_enseignant'] = $id;
     // Redirection
     header('Location: ../pages/accueilProfesseur.html');    
 } 

@@ -192,16 +192,21 @@ function ajoutQuestion(question_input, assertions, reponse_input)
     }
 
     questionnaire.push(question);
-    ajoutBaseDeDonnees(questionnaire);
-    // afficherQuestion(questionnaire);
+    ajoutBaseDeDonnees(question);
+    afficherQuestion(questionnaire);
 }
 
 
-function ajoutBaseDeDonnees(questionnaire)
+function ajoutBaseDeDonnees(question)
 {
-    console.log(questionnaire);
+    console.log(question);
+    var action = "ajouter";
+    
+    $.post("../controllers/QuestionController.php", { action , question }, data => 
+    {
+        console.log(data);
+    })
 
-    afficherQuestion(questionnaire);
 }
 
 function supprimerQuestion(element) {
@@ -212,7 +217,7 @@ function supprimerQuestion(element) {
         return item.id != element;
     })
 
-    ajoutBaseDeDonnees(questionnaire);
+    afficherQuestion(questionnaire);
 }
 
 function afficherQuestion(questionnaire) 

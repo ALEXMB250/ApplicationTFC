@@ -36,6 +36,17 @@ class TP {
         $result->execute($data);
     }
 
+
+    public static function getEnseignantByid($enseignant_id)
+    {
+        $connexion = Connexion::getConnexion();
+        $reponse = $connexion->prepare('SELECT * FROM enseignant WHERE id= ?');
+        $reponse->execute(array($enseignant_id));
+        $data = $reponse -> fetch(PDO::FETCH_ASSOC);
+        $reponse->closeCursor();
+        return $data;
+    }
+
 }
 
 
