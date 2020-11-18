@@ -7,23 +7,30 @@ require "../models/TPModel.php";
 
 if (isset($_POST['date_debut']) && isset($_POST['heure_debut']) &&
     isset($_POST['date_fin']) && isset($_POST['heure_fin']) &&
-    isset($_POST['cours']) && isset($_POST['enseignant']) &&
-    isset($_POST['duree']) ) {
-    
-    $date_debut = $_POST['date_debut'];
-    $heure_debut = $_POST['heure_debut'];
-    $date_fin = $_POST['date_fin'];
-    $heure_fin = $_POST['heure_fin'];
-    $cours = $_POST['cours'];
-    $enseignant = $_POST['enseignant'];
-    $duree = $_POST['duree'];
+    isset($_POST['cours'])  && isset($_POST['duree']) ) 
+    {
+        $id = uniqid("TP_");
+        $date_debut = $_POST['date_debut'];
+        $heure_debut = $_POST['heure_debut'];
+        $date_fin = $_POST['date_fin'];
+        $heure_fin = $_POST['heure_fin'];
+        $cours = $_POST['cours'];
+        $duree = $_POST['duree'];
+        $enseignant_id = $_SESSION["enseignant_id"];
 
-    $enseignant_id = $_SESSION["enseignant_id"];
+        $tp = new TP($id, $date_debut, $heure_debut, 
+                     $date_fin, $heure_fin, $duree, 
+                     $cours, $enseignant_id);
+        $tp->insert();
+        $_SESSION["tp_id"] = $id;
+        // Redirection
+        header('Location: ../pages/ComposerQuestionnaire.html');
 
-    $tp = new TP($date_debut, $heure_debut, $date_fin, $heure_fin, $duree, $cours, $enseignant_id);
-    $tp->insert();
-    
-}
+    }
+
+    else{
+        echo'<h3 style="color:red">Une Erreur est survenu sur TPController.php</h3>';
+    }
 
 
 ?>

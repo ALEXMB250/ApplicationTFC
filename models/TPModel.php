@@ -4,6 +4,7 @@ require "ConnexionBD.php";
 
 
 class TP {
+    private $id;
     private $date_debut;
     private $heure_debut;
     private $date_fin;
@@ -12,7 +13,8 @@ class TP {
     private $cours;
     private $enseignant_id;
 
-    public function __construct($date_debut, $heure_debut, $date_fin, $heure_fin, $duree, $cours, $enseignant_id) {
+    public function __construct($id, $date_debut, $heure_debut, $date_fin, $heure_fin, $duree, $cours, $enseignant_id) {
+        $this->id = $id;
         $this->date_debut = $date_debut ." ". $heure_debut;
         $this->date_fin = $date_fin ." ". $heure_fin;
         $this->duree = $duree;
@@ -23,6 +25,7 @@ class TP {
     public function insert() {
         $connexion = Connexion::getConnexion();
         $data = array(
+            $this->id,
             $this->date_debut, 
             $this->date_fin, 
             $this->duree, 
@@ -30,21 +33,27 @@ class TP {
             $this->enseignant_id
         );
 
-        $requete = "INSERT INTO tp(date_debut, date_fin, duree, cours, enseignant_id)
-                    VALUES(?, ?, ?, ?, ?)";
+        // echo "INSERT INTO tp(id, date_debut, date_fin,
+        //                 duree, cours, enseignant_id) 
+        //                 VALUES(" .$data[0]. "," .$data[1] 
+        //                       ."," .$data[2]. "," .$data[3]
+        //                       ."," .$data[4]. "," .$data[5]
+        //                       .")";
+
+        // INSERT INTO `tp` (`id`, `date_debut`, `date_fin`,
+        //  `duree`, `cours`, `enseignant_id`) 
+        // VALUES ('TP_15efda', '2020-11-18 15:07:30', '2020-11-18 16:07:30', 
+        // '20', 'java', 'EA_5fb5913d0408');
+
+        // $requete = "INSERT INTO enseignant(id, email, mdp) VALUES(?,?,?)";
+        // $result = $connexion-> prepare($requete);
+        // $result-> execute($data);
+
+        $requete = "INSERT INTO tp(id, date_debut, date_fin,
+                    duree, cours, enseignant_id)
+                    VALUES(?, ?, ?, ?, ?, ?)";
         $result = $connexion-> prepare($requete);
         $result->execute($data);
-    }
-
-
-    public static function getEnseignantByid($enseignant_id)
-    {
-        $connexion = Connexion::getConnexion();
-        $reponse = $connexion->prepare('SELECT * FROM enseignant WHERE id= ?');
-        $reponse->execute(array($enseignant_id));
-        $data = $reponse -> fetch(PDO::FETCH_ASSOC);
-        $reponse->closeCursor();
-        return $data;
     }
 
 }

@@ -28,7 +28,7 @@ class Enseignant {
         $result-> execute($data);
     }
 
-    public function valider($email, $mdp) {
+    public static function valider($email, $mdp) {
         $connexion = Connexion::getConnexion();
         $query = sprintf("SELECT id FROM enseignant WHERE email='%s' AND mdp = '%s'", $email, $mdp);
         $reponse = $connexion->query($query);
