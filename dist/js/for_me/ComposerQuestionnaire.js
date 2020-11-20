@@ -191,15 +191,14 @@ function ajoutQuestion(question_input, assertions, reponse_input)
         reponse : reponse_input
     }
 
-    questionnaire.push(question);
-    ajoutBaseDeDonnees(question);
-    afficherQuestion(questionnaire);
+    questionnaire.push(question); // ajouter la question dans le tableau questionnaire
+    ajoutBaseDeDonnees(question); // ajouter dans la base de donnees
+    afficherQuestion(questionnaire); // actualiser le rendu sur la page
 }
 
 
 function ajoutBaseDeDonnees(question)
 {
-    console.log(question);
     var action = "ajouter";
     
     $.post("../controllers/QuestionController.php", { action , question }, data => 
@@ -209,13 +208,11 @@ function ajoutBaseDeDonnees(question)
 
 }
 
-function supprimerQuestion(element) {
+function supprimerQuestion(id) {
     
     questionnaire = questionnaire.filter(function (item) {
-        console.log(item.id + " = " + element)
-
-        return item.id != element;
-    })
+        return item.id != id;
+    });
 
     afficherQuestion(questionnaire);
 }
@@ -224,7 +221,6 @@ function afficherQuestion(questionnaire)
 {
 
     questionItemList.innerHTML = '';
-    var key = Date.now();
 
     questionnaire.forEach(element => {
         var div = document.createElement('div');
@@ -235,7 +231,7 @@ function afficherQuestion(questionnaire)
                 <h3 class="card-title">Question</h3>
 
                 <div class="card-tools">
-                    <button type="button" data-key="${key}" class="btn btn-tool"><i class="fas fa-times"></i></button>
+                    <button type="button" data-key="${element.id}" class="btn btn-tool"><i class="fas fa-times"></i></button>
                 </div>
             </div>
         `;
@@ -318,6 +314,7 @@ function afficherQuestion(questionnaire)
 
 questionItemList.addEventListener("click", function (e) {
     if(e.target.classList.contains("fa-times")){
+        // console.log(e.target.parentElement.getAttribute('data-key'));
         supprimerQuestion(e.target.parentElement.getAttribute('data-key'));
     }
 })

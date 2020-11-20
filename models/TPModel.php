@@ -33,22 +33,6 @@ class TP {
             $this->enseignant_id
         );
 
-        // echo "INSERT INTO tp(id, date_debut, date_fin,
-        //                 duree, cours, enseignant_id) 
-        //                 VALUES(" .$data[0]. "," .$data[1] 
-        //                       ."," .$data[2]. "," .$data[3]
-        //                       ."," .$data[4]. "," .$data[5]
-        //                       .")";
-
-        // INSERT INTO `tp` (`id`, `date_debut`, `date_fin`,
-        //  `duree`, `cours`, `enseignant_id`) 
-        // VALUES ('TP_15efda', '2020-11-18 15:07:30', '2020-11-18 16:07:30', 
-        // '20', 'java', 'EA_5fb5913d0408');
-
-        // $requete = "INSERT INTO enseignant(id, email, mdp) VALUES(?,?,?)";
-        // $result = $connexion-> prepare($requete);
-        // $result-> execute($data);
-
         $requete = "INSERT INTO tp(id, date_debut, date_fin,
                     duree, cours, enseignant_id)
                     VALUES(?, ?, ?, ?, ?, ?)";
