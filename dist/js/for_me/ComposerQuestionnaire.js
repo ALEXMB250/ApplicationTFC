@@ -203,7 +203,7 @@ function ajoutBaseDeDonnees(question)
     
     $.post("../controllers/QuestionController.php", { action , question }, data => 
     {
-        console.log(data);
+        //console.log(data);
     })
 
 }

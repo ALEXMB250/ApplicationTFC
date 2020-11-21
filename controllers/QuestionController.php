@@ -1,6 +1,7 @@
 <?php
     require "../models/QuestionModel.php";
     require "../models/AssertionModel.php";
+    require "../models/ReponseModel.php";
     session_start();
 
     // envoyer les donnees 
@@ -9,6 +10,7 @@
     {
         $id = $_POST["question"]["id"];
         $enonce = $_POST["question"]["question"];
+        $reponse = $_POST["question"]["reponse"];
         $assertion_count = count($_POST["question"]["assertion"]);
 
         $tp_id = $_SESSION['tp_id'];
@@ -17,30 +19,33 @@
         if ($assertion_count == 1) 
         {
             $type = "Question/reponse";
-            echo $type ." ---> " .$enonce. " ---> " .$id;
-
             $quest = new Question($id, $type, $enonce, $tp_id);
-            $quest->insert();
-
             $assertion = new Assertion($enonce, $id);
+            $rep = new Reponse($reponse, $id);
+
+            $quest->insert();
             $assertion->insert();
+            $rep->insert();
         } 
         else if ($assertion_count > 1)
         {
             $type = "Assertion";
             $assertions = $_POST["question"]["assertion"];
+            $quest = new Question($id, $type, $enonce, $tp_id);
+            $rep = new Reponse($reponse, $id);
 
-            // $quest = new Question($id, $type, $enonce, $tp_id);
-            // $quest->insert();
-
-            foreach($assertions as $element){
-                echo $element. "<br>";
+            $quest->insert();
+            $rep->insert();
+            foreach($assertions as $enonce){
+                $assertion = new Assertion($enonce, $id);
+                $assertion->insert();
             }
             
+
         } 
         else
         {
-           echo "rien";
+           echo "<h3 style=\"color:red;\">Erreur a la page QuestionContoller.php</h3>";
         }
 
     }
