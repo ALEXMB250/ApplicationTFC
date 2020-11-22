@@ -3,21 +3,33 @@
 require "ConnexionBD.php";
 
 class Apprenant {
-    private $id_prof;
+    private $id;
     private $email;
     private $mdp;
+    private $point;
+    private $tp_id;
 
-    public function __construct($email, $mdp, $id_prof) {
+    public function __construct($email, $mdp, $point, $tp_id) {
+        $this->id = uniqid("AP_");
         $this->email = $email;
         $this->mdp = $mdp;
-        $this->id_prof = $id_prof;
+        $this->point = $point;
+        $this->tp_id = $tp_id;
     }
 
     public function insert() {
-        // $connexion = new PDO('mysql:host=localhost;dbname=applicationtfc', "root", "");
-        $requete = sprintf("INSERT INTO apprenant(email, mdp, id ) VALUES('%s', '%s')", $this->email, $this->mdp);
-        $result = $connexion-> prepare($requete);
-        $result->execute();
+        $con = Connexion::getConnexion();
+        $data = array(
+            $this->id,
+            $this->email,
+            $this->mdp,
+            $this->point,
+            $this->tp_id
+        );
+
+        $requete = "INSERT INTO apprenant(id, email, mdp, `point`, tp_id) VALUES(?,?,?,?,?)";
+        $resultat = $con->prepare($requete);
+        $resultat->execute($data);        
     }
 
     public function valider($email, $mdp) {
@@ -42,5 +54,8 @@ class Apprenant {
 
 }
 
+// $apprenant = new Apprenant("gloire@gmail.com", "1234", null, "TP_15efda"); 
+// $apprenant->insert();
+// ("1234","gloire@gmail.com","1234",null,"TP_15efda");
 
 ?>

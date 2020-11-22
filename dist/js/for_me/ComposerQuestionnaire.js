@@ -201,10 +201,12 @@ function ajoutBaseDeDonnees(question)
 {
     var action = "ajouter";
     
-    $.post("../controllers/QuestionController.php", { action , question }, data => 
-    {
-        //console.log(data);
-    })
+    $.post("../controllers/QuestionController.php", { action , question })
+
+    // $.post("../controllers/QuestionController.php", { action , question }, data => 
+    // {
+    //     console.log(data);
+    // })
 
 }
 

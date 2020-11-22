@@ -25,10 +25,11 @@ function ajoutApprenant(element){
     if (element !== "") {
         const apprenant = {
             email : element,
-            mdp : Date.now()
+            mdp : genererMdp()
         };
 
         apprenants.push(apprenant);
+        ajoutBaseDeDonnees(apprenant)
         afficherApprenants(apprenants);
 
         apprenantInput.value = "";
@@ -51,22 +52,14 @@ function afficherApprenants(apprenants) {
     });
 
 }
-// encour
-function ajouterBD(apprenants) {
-    $.ajax({
-        method: 'POST',
-        url: '../../../controllers/EnregistrementApprenant.php',
-        datas: apprenants,
-        success: (datas) => {
-            if(datas == 'ok') {
-                console.log("Tres belle insertion");
-            } else {
-                console.warn("Wapi!");
-            }
-        }
-    });
 
-    afficherApprenants(apprenants);
+
+function ajoutBaseDeDonnees(apprenant)
+{
+    var action = "ajouter";
+    $.post("../controllers/InviterApprenantController.php", { action , apprenant }, data =>{
+        console.log(data)
+    })
 }
 
 function supprimerApprenant(mdp) {
@@ -84,4 +77,10 @@ apprenantItemList.addEventListener('click', function (event) {
     }
 
 });
+
+function genererMdp() {
+    return Math.floor((1 + Math.random()) * 0x1000000)
+        .toString(16)
+        .substring(1)
+}
 
