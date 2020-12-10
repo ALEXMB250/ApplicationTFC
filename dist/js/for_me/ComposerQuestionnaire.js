@@ -210,6 +210,13 @@ function ajoutBaseDeDonnees(question)
 
 }
 
+function supprimerBaseDeDonnees(id) {
+    var action = "supprimer";
+    $.post("../controllers/QuestionController.php", { action, id }, function () {
+        console.log(data)
+    });
+}
+
 function supprimerQuestion(id) {
     
     questionnaire = questionnaire.filter(function (item) {

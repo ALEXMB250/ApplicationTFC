@@ -32,9 +32,7 @@ else if ($_POST['action'] == "authentifier" && isset($_POST['email']) && isset($
         echo "Login ou mot de passe incorrecte </br>";
         echo "<a href='../pages/connecterProfesseur.php'>Page d'accueil</a>";
     }
-} else {
-    echo "Vide";
-}
+} 
 
 
 ?>

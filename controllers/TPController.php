@@ -24,7 +24,7 @@ if (isset($_POST['date_debut']) && isset($_POST['heure_debut']) &&
         $tp->insert();
         $_SESSION["tp_id"] = $id;
         // Redirection
-        header('Location: ../pages/ComposerQuestionnaire.html');
+        header('Location: ../pages/inviterApprenant.html');
 
     }
 

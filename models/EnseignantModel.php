@@ -19,7 +19,7 @@ class Enseignant {
         $data = array(
             $this->id,
             $this->email,
-            $this->mdp
+            md5($this->mdp)
         );
 
         $connexion = Connexion::getConnexion();
@@ -30,7 +30,7 @@ class Enseignant {
 
     public static function valider($email, $mdp) {
         $connexion = Connexion::getConnexion();
-        $query = sprintf("SELECT id FROM enseignant WHERE email='%s' AND mdp = '%s'", $email, $mdp);
+        $query = sprintf("SELECT id FROM enseignant WHERE email='%s' AND mdp = '%s'", $email, md5($mdp));
         $reponse = $connexion->query($query);
 
         $id = null;
@@ -45,14 +45,24 @@ class Enseignant {
     public static function getEnseignantByid($enseignant_id)
     {
         $connexion = Connexion::getConnexion();
-        $reponse = $connexion->prepare('SELECT * FROM enseignant WHERE id= ?');
-        $reponse->execute(array($enseignant_id));
-        $data = $reponse -> fetch(PDO::FETCH_ASSOC);
-        $reponse->closeCursor();
-        return $data;
+        $query = sprintf("SELECT 
+        enseignant.email as email, tablename.ID_TP as id_tp, tablename.Nombre_apprenant as nombre_apprenant 
+        FROM 
+        (SELECT 
+            tp.id as ID_TP, count(apprenant.id) as Nombre_Apprenant, tp.enseignant_id as ID_Enseignant 
+            FROM tp inner join apprenant on tp.id = apprenant.tp_id GROUP BY tp.id) as tablename 
+            INNER JOIN enseignant on tablename.ID_Enseignant = enseignant.id WHERE enseignant.id = '%s'", $enseignant_id);
+
+        $reponse = $connexion->prepare($query);
+        $reponse -> execute();
+
+        $datas = $reponse->fetchAll(PDO::FETCH_ASSOC);
+
+        echo "<pre>".var_dump($datas)."</pre>";
+
     }
 
 }
-
-
+    $id = 'EA_5fb5913d0408';
+    $data = Enseignant::getEnseignantByid($id);
 ?>

@@ -1,6 +1,6 @@
 <?php
     require "../models/ApprenantModel.php";
-    // session_start();
+    session_start();
 
 
     // envoyer les donnees 
@@ -9,7 +9,7 @@
     {
         $email = $_POST['apprenant']['email'];
         $mdp = $_POST['apprenant']['mdp'];
-        $tp_id = "TP_15efda";
+        $tp_id = $_SESSION['tp_id'];
         
 // $apprenant = new Apprenant("gloire@gmail.com", "1234", null, "TP_15efda"); 
         

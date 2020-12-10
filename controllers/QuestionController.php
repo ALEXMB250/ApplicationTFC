@@ -52,12 +52,7 @@
 
     else if ($_POST['action'] == "supprimer" && isset($_POST['question'])) 
     {
-        $email = $_POST["email"];
-        $mdp = $_POST["mdp"];
-        $enseignant = new Enseignant($email, $mdp);
-        $enseignant->insert();
-        // Redirection
-        header('Location: ../pages/accueilProfesseur.html');    
+        echo "OK";    
     }
 
     else 

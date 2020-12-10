@@ -40,6 +40,11 @@ class TP {
         $result->execute($data);
     }
 
+    public function getTPByEnseignant($id){
+        $connexion = Connexion::getConnexion();
+        
+    }
+
 }
 
 
